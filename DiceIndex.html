@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Dice Generator</title>
+<script>
+function callRest(){
+var obj, dbParam, xmlhttp, myObj, x, txt = "";
+
+xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        
+    	myObj=JSON.parse(this.responseText);
+        
+	
+	for(x in myObj){
+	txt += myObj[x].dice1+","+myObj[x].dice2+","+myObj[x].dice3;
+	}
+        document.getElementById("textbox").value= txt;
+   }     
+};
+xmlhttp.open("GET", "http://localhost:8080/randomNumber", 
+
+true);
+
+xmlhttp.send();
+}
+</script>
+
+
+</head>
+<body>
+<button onclick="callRest()">Generate number</button>
+<textarea id ="textbox"> </textarea>
+	
+</body>
+</html>
